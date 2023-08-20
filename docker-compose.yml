@@ -1,0 +1,45 @@
+version: '3'
+services:
+    mysql:
+        image: mariadb:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: "hophuoctrung"
+            MYSQL_USER: "trungHo"
+            MYSQL_PASSWORD: "trungHo"
+            MYSQL_DATABASE: "docker_php"
+        volumes:
+            - mysqldata:/var/lib/mysql
+            - ./app:/app
+        ports:
+            - "3306:3306"
+    php:
+        build:
+            context: .
+            dockerfile: PHP.Dockerfile
+        environment:
+            - DATABASE_URL=mysql://trungHo:trungHo@mysql:3306/docker_php
+        volumes:
+            - ./app:/app
+        depends_on:
+            - mysql
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+            PMA_PORT: "3306"
+            PMA_HOST: "mysql"
+            MYSQL_ROOT_PASSWORD: "hophuoctrung"
+        ports:
+            - "8080:80"
+        depends_on:
+            - mysql
+    web:
+        image: nginx:alpine
+        ports:
+            - "80:80"
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
+            - ./app:/app
+        depends_on:
+            - php
+volumes:
+    mysqldata: {}
