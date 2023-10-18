@@ -60,9 +60,15 @@ Remember to have fun and enjoy coding with DockerPHP! 😊
       [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
   );
   ```
+- For CakePHP, please replace `nginx.conf` with `cakephp.nginx.conf` as attached. For other frameworks, please update Nginx according to their instructions. 
+- You may need to grant permissions to `bin/bake` in the PHP container to use the Bake tool directly. Use the command `chmod +x bin/cake` to grant execute permissions to `bin/cake`.
+   ```bash
+      chmod +x bin/cake
+   ```
+- Additionally, you can also use PHP Composer within the PHP container.
 
 ______________________________________________________________________
 
-> I use it for developing both plain PHP code and CakePHP applications. However, it is advisable to exercise caution when deploying it in a production environment. Please feel free to contribute if you have any ideas or suggestions.
-> HappyCoding! 😄
+> I use it for developing both plain PHP code and CakePHP applications. However, it is advisable to exercise caution when deploying it in a production environment. Please feel free to contribute if you have any ideas or suggestions. 
+> HappyCoding! 😄 
 > **TrungHo**
